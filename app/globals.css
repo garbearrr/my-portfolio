@@ -1,26 +1,21 @@
-@import "tailwindcss";
+html, body, #__next {
+  scrollbar-width: none;       /* Firefox */
+  -ms-overflow-style: none;    /* IE 10+ */
+  margin:   0;
+  padding:  0;
+  height:   100%;
+  overflow-x: hidden;   /* no scrollbars anywhere */
+}
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* background & accents already defined? e.g. */
+  --neon-accent:  #0EF1F1;
+  /* new text variables */
+  --text-primary: #F8FAFC;  /* almost white for headings */
+  --text-secondary: #E0E7FF;/* pale periwinkle for body copy */
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;               /* Safari and Chrome */
 }

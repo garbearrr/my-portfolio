@@ -1,0 +1,176 @@
+.hero {
+  display: flex;
+  align-items: center; /* center everything vertically */
+  justify-content: center; /* center everything horizontally */
+  gap: 2rem;
+  position: relative; /* create a new stacking context */
+  z-index: 2;
+  padding: 2rem 1rem;
+  min-height: 100vh;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* bump both up to 40% of the width */
+.profile,
+.about {
+  flex: 0 0 40%;
+}
+
+/* keep your avatar a perfect circle */
+.profile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.avatar {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+}
+
+@font-face {
+  font-family: "pixel-game";
+  src: url("/fonts/Ticketing.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* make .about a square in which we can absolutely center the <h1> */
+.about {
+  flex: 0 0 40%;
+  /* center its children both ways */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: "pixel-game", sans-serif;
+  /* text will wrap within this box */
+  text-align: center;
+}
+
+.about h1,
+.about p {
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.about h1 {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  line-height: 1.2;
+  margin: 0.25em 0;
+  color: var(--text-primary);
+}
+
+.name {
+  color: var(--neon-accent);
+}
+
+/* the body text is still big, but distinctly smaller */
+/* body copy: secondary text-colour */
+.about p {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  line-height: 1.6;
+  margin: 0.5em 0;
+  color: var(--text-secondary);
+  /* inherit var(--text-secondary) from .about */
+}
+
+/* MOBILE: stack ’em full-width */
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column;
+    min-height: auto;
+    padding: 1.5rem 1rem;
+  }
+  .profile,
+  .about {
+    flex: none;
+    width: 90%;
+    aspect-ratio: unset;
+    height: auto;
+    margin-bottom: 1.5rem;
+  }
+  .avatar {
+    width: 150px;
+    height: 150px;
+  }
+  .about h1,
+  .about p {
+    position: static;
+    transform: none;
+    top: auto;
+    left: auto;
+    margin: 0.5rem 0;
+  }
+}
+
+/* 1) define the “fade in + slide up” animation */
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(25vh);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 2) PROFILE PIC: fade in first */
+.profile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  animation: fadeSlideIn 0.8s ease-out forwards;
+  animation-delay: 0.2s;
+}
+
+/* 3)  heading: second */
+.about h1 {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  line-height: 1.2;
+  margin: 0.25em 0;
+  color: var(--text-primary);
+  opacity: 0;
+  animation: fadeSlideIn 0.8s ease-out forwards;
+  animation-delay: 0.6s;
+}
+
+/* 4) rest of the paragraph: last */
+.about p {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  line-height: 1.6;
+  margin: 0.5em 0;
+  color: var(--text-secondary);
+  opacity: 0;
+  animation: fadeSlideIn 0.8s ease-out forwards;
+  animation-delay: 1s;
+}
+
+/* subtle arrow / text at bottom-center of the hero */
+.scrollHint {
+  position: fixed;
+  bottom: 2.5rem;          /* space from viewport edge */
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: "pixel-game", sans-serif;
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  color: var(--text-secondary);
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+  letter-spacing: 0.05em;
+  animation: hintPulse 1.8s ease-in-out infinite;
+  pointer-events: none;    /* so it never blocks clicks / drags */
+  z-index: 2;
+}
+
+/* keyframes for a gentle fade-up-down */
+@keyframes hintPulse {
+  0%, 100% { opacity: 0; transform: translate(-50%, 6px); }
+  50%      { opacity: 1; transform: translate(-50%, 0);   }
+}
+
