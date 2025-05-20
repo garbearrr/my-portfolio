@@ -253,7 +253,7 @@ export type ProjectRecord = {
         'TypeScript',
         'UI/UX',
         'AWS',
-        'Apache',
+        'NGINX',
         'HTML/CSS'
       ],
       links: [
